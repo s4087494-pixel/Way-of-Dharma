@@ -18,7 +18,7 @@ handRenderer.physicallyCorrectLights = true;
 // Append to body
 document.body.appendChild(handRenderer.domElement);
 handRenderer.domElement.style.position = 'absolute';
-handRenderer.domElement.style.top = '0';
+handRenderer.domElement.style.top = '-3vh';
 handRenderer.domElement.style.left = '-40px';
 handRenderer.domElement.style.zIndex = '-2';
 handRenderer.domElement.style.pointerEvents = 'none';
