@@ -1,16 +1,17 @@
 // Scene setup
 const scene = new THREE.Scene();
+const buddhaContainer = document.getElementById('buddha-container');
 
 let camera = new THREE.PerspectiveCamera(
     75,
-    window.innerWidth / window.innerHeight,
+    buddhaContainer.clientWidth / buddhaContainer.clientHeight,
     0.1,
     1000
 );
 
 // Renderer setup
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(buddhaContainer.clientWidth, buddhaContainer.clientHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 document.getElementById('buddha-container').appendChild(renderer.domElement);
 // Color management and tone mapping
@@ -73,7 +74,7 @@ loader.load('assets/3D/buddha.glb', (gltf) => {
     if (gltf.cameras && gltf.cameras.length > 0) {
         console.log('Using exported Blender camera');
         camera = gltf.cameras[0];
-        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.aspect = buddhaContainer.clientWidth / buddhaContainer.clientHeight;
         camera.updateProjectionMatrix();
         controls.object = camera;
         initialCameraPos = camera.position.clone();
@@ -117,21 +118,10 @@ loader.load('assets/3D/buddha.glb', (gltf) => {
     const fov = camera.fov * (Math.PI / 180);
     let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
     
-    // Responsive scaling: 1366×768, 1536×864, 1920×1080
-    const screenWidth = window.innerWidth;
-    let scaleMultiplier = 1.5; // default buffer
-    
-    if (screenWidth <= 1366) {
-        scaleMultiplier = 2.2; // 1366×768 - smaller 
-    } else if (screenWidth <= 1536) {
-        scaleMultiplier = 1.8; // 1536×864 - medium 
-    } else if (screenWidth >= 1920) {
-        scaleMultiplier = 1.3; // 1920×1080 - larger 
-    }
-    
-    cameraZ *= scaleMultiplier;
-    
-    camera.position.z = cameraZ;
+    cameraZ = Math.max(size.y / 2 / Math.tan(fov / 2), size.x / 2 / Math.tan(fov / 2) / camera.aspect) * 1.5;
+    camera.position.set(0, 0, cameraZ);
+    initialCameraPos.copy(camera.position);
+    buddhaModel.userData.frameSize = size.clone();
     controls.target.set(0, 0, 0);
     controls.update();
     
@@ -145,13 +135,19 @@ loader.load('assets/3D/buddha.glb', (gltf) => {
 
 
 window.addEventListener('resize', () => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const width = buddhaContainer.clientWidth;
+    const height = buddhaContainer.clientHeight;
     
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     
     renderer.setSize(width, height);
+    if (buddhaModel) {
+        const size = buddhaModel.userData.frameSize;
+        const halfFov = camera.fov * Math.PI / 360;
+        initialCameraPos.z = Math.max(size.y / 2 / Math.tan(halfFov), size.x / 2 / Math.tan(halfFov) / camera.aspect) * 1.5;
+        camera.position.z = initialCameraPos.z;
+    }
 });
 
 // Animation loop
@@ -167,7 +163,7 @@ function animate() {
     camera.position.x = initialCameraPos.x + (mouseX - 0.5) * parallaxAmount;
     camera.position.y = initialCameraPos.y + (0.5 - mouseY) * parallaxAmount * 0.5;
     camera.position.z = initialCameraPos.z;
-    camera.lookAt(0, 1, 0);
+    camera.lookAt(0, 0, 0);
     
     controls.update();
     renderer.render(scene, camera);

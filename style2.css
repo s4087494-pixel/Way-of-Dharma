@@ -152,3 +152,20 @@ top: 14%;
     text-decoration: inherit;
     display: inline;
 }
+/* Keep every scene anchored to the viewport, including short laptop windows. */
+html { width: 100%; height: 100%; }
+body { position: relative; margin: 0; height: 100vh; height: 100dvh; }
+* { box-sizing: border-box; }
+
+.title2 { top: 6%; padding-inline: 24px; font-size: clamp(0.65rem, 1vw, 1rem); }
+.info { position: absolute; top: 20%; padding-inline: 24px; font-size: clamp(0.85rem, 1.2vw, 1.2rem); }
+.info h3 { position: static; font-size: inherit; line-height: 1.5; }
+.guide { left: 50%; top: 56%; width: 90%; height: 62%; }
+.button { position: absolute; top: auto; bottom: 6%; font-size: clamp(1rem, 1.3vw, 1.4rem); }
+#canvasOutput { width: min(200px, 18vw) !important; }
+@media (max-width: 700px) {
+ .title2 { top: 15%; }
+ .info { top: 29%; }
+ .guide { top: 62%; height: 45%; }
+ #gestureStatus { font-size: 10px; padding: 6px !important; }
+}

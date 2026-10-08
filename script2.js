@@ -19,7 +19,7 @@ handRenderer.physicallyCorrectLights = true;
 document.body.appendChild(handRenderer.domElement);
 handRenderer.domElement.style.position = 'absolute';
 handRenderer.domElement.style.top = '0';
-handRenderer.domElement.style.left = '-40px';
+handRenderer.domElement.style.left = '0';
 handRenderer.domElement.style.zIndex = '-2';
 handRenderer.domElement.style.pointerEvents = 'none';
 
@@ -31,6 +31,8 @@ let handCamera = new THREE.PerspectiveCamera(
     1000
 );
 handCamera.position.set(0, 0, 10.5);
+handCamera.fov = 40;
+handCamera.updateProjectionMatrix();
 
 // Controls
 const handControls = new THREE.OrbitControls(handCamera, handRenderer.domElement);
@@ -53,16 +55,7 @@ document.addEventListener('mousemove', (event) => {
 
 // get hand scale based on screen width
 function getHandScale() {
-    const screenWidth = window.innerWidth;
-    
-    if (screenWidth <= 1366) {
-        return 0.025; // Smaller for 1366×768
-    } else if (screenWidth <= 1536) {
-        return 0.028; // Medium for 1536×864
-    } else if (screenWidth >= 1920) {
-        return 0.035; // Larger for 1920×1080
-    }
-    return 0.03; // Default
+    return Math.min(0.035, Math.max(0.025, window.innerWidth / 1920 * 0.035));
 }
 
 // Load hand model
@@ -160,7 +153,7 @@ window.addEventListener('resize', () => {
     
     // Update hand scale for new screen size
     if (handModel) {
-        const scale = getHandScale();
+        const scale = getHandScale() * 0.5;
         handModel.scale.set(scale, scale, scale);
     }
 });

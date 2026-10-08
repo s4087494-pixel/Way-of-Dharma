@@ -181,30 +181,14 @@ h6 {
     font-size: clamp(0.9rem, 1.5vw, 1.5rem);
 }
 
-/* Responsive breakpoints: 1366×768, 1536×864, 1920×1080 */
-@media (max-width: 1366px) {
-    .size {
-        font-size: clamp(0.8rem, 1.3vw, 1.3rem);
-    }
-    .info2 {
-        width: clamp(250px, 32%, 500px);
-    }
-}
 
-@media (min-width: 1367px) and (max-width: 1536px) {
-    .size {
-        font-size: clamp(0.9rem, 1.4vw, 1.5rem);
-    }
-    .info2 {
-        width: clamp(270px, 35%, 530px);
-    }
-}
+/* Keep every scene anchored to the viewport, including short laptop windows. */
+html { width: 100%; height: 100%; }
+body { position: relative; margin: 0; height: 100vh; height: 100dvh; }
+* { box-sizing: border-box; }
 
-@media (min-width: 1920px) {
-    .size {
-        font-size: clamp(1.1rem, 1.8vw, 1.9rem);
-    }
-    .info2 {
-        width: clamp(320px, 38%, 600px);
-    }
-}
+.texture { inset: 0; width: 100%; height: 100%; }
+.info { padding-inline: 24px; font-size: clamp(0.65rem, 1vw, 1rem); }
+.info2 { top: 52%; width: min(70vw, 600px); }
+.size { margin: 0; font-size: clamp(0.9rem, min(1.5vw, 3vh), 1.5rem); line-height: 1.4; }
+.yinyang { width: min(70vw, 70vh); height: min(70vw, 70vh); }

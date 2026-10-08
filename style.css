@@ -128,43 +128,6 @@ h2 {
 
 }
 
-/* Responsive breakpoints: 1366×768, 1536×864, 1920×1080 */
-@media (max-width: 1366px) {
-    .subtitle {
-        width: clamp(160px, 16%, 350px);
-    }
-
-    .title {
-        left: clamp(70%, 55vw, 60%);
-    
-    }
-
-    h1 {
-        font-size: clamp(5em, 9vw, 10em);
-    }
-
-    h2 {
-        font-size: clamp(0.9rem, 1.3vw, 1.3em);
-    }
-}
-
-@media (min-width: 1367px) and (max-width: 1536px) {
-    h1 {
-        font-size: clamp(6em, 9.5vw, 11em);
-    }
-}
-
-@media (min-width: 1920px) {
-
-    h1 {
-        font-size: clamp(6em, 8vw, 10em);
-    }
-
-    h2 {
-        font-size: clamp(1.2rem, 1.6vw, 1.7em);
-    }
-}
-
 /* Hover glow effect for h2 */
 .subtitle:hover h2,
 h2:hover {
@@ -180,4 +143,20 @@ h2 a {
     color: inherit;
     text-decoration: none;
     display: inline-block;
+}
+/* Keep every scene anchored to the viewport, including short laptop windows. */
+html { width: 100%; height: 100%; }
+body { position: relative; margin: 0; height: 100vh; height: 100dvh; }
+* { box-sizing: border-box; }
+
+#buddha-container { left: 35%; top: 0; width: 65%; height: 100%; transform: none; z-index: 0; }
+.title { top: 15%; left: 7%; width: 56%; transform: none; }
+h1 { font-size: clamp(3rem, min(9vw, 17vh), 12rem); line-height: 0.95; }
+.subtitle { position: absolute; top: 62%; left: 7%; width: min(38%, 600px); transform: none; gap: 1rem; }
+h2 { margin-top: 0; font-size: clamp(1rem, 1.5vw, 1.7rem); line-height: 1.4; }
+@media (max-width: 700px) {
+ .title { top: 9%; left: 6%; width: 88%; }
+ h1 { font-size: clamp(3rem, 14vw, 6rem); }
+ #buddha-container { left: 15%; top: 22%; width: 85%; height: 65%; }
+ .subtitle { top: auto; bottom: 7%; left: 6%; width: 88%; }
 }
