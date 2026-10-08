@@ -68,8 +68,9 @@ canvas {
 .title {
     position: absolute;
     top: clamp(28%, 32vh, 35%);
-    left: clamp(29%, 32vw, 34%);
-    transform: translate(-50%, -50%);
+    left: 5vw;
+    width: 61vw;
+    transform: translateY(-50%);
     z-index: 15;
     pointer-events: none;
 }
@@ -78,7 +79,8 @@ h1 {
     font-family: "cherry-blossoms-wide", sans-serif;
     font-weight: 600;
     font-style: normal;
-    font-size: clamp(6em, 10vw, 12em);
+    font-size: clamp(3rem, 7.5vw, 12rem);
+    white-space: nowrap;
     color: rgb(227, 189, 95);
     animation: float 6s ease-in-out infinite;
 }
@@ -101,7 +103,7 @@ h2 {
     font-style: italic;
     font-size: clamp(1rem, 1.5vw, 1.5em);
     color: rgb(64, 82, 70);
-    margin-top: -20px;
+    margin-top: 0;
     text-align: left;
     pointer-events: auto;
     cursor: pointer;
@@ -111,59 +113,22 @@ h2 {
 }
 
 .subtitle {
-    width: clamp(300px, 25vw, 600px);
-    position: relative;
-    top: clamp(42%, 45vh, 48%);
-    left: clamp(45%, 48vw, 51%);
-    transform: translate(-50%, -50%);
+    width: 26vw;
+    position: absolute;
+    top: 40vh;
+    left: 35.5vw;
     z-index: 15;
     pointer-events: auto;
     cursor: pointer;
     text-decoration: none;
     color: inherit;
-    display: block;
     display: flex;
     flex-direction: column;
-    gap: clamp(10px, 1.5vw, 20px);
+    gap: 0.15em;
 
 }
 
-/* Responsive breakpoints: 1366×768, 1536×864, 1920×1080 */
-@media (max-width: 1366px) {
-    .subtitle {
-        width: clamp(160px, 16%, 350px);
-    }
-
-    .title {
-        left: clamp(70%, 55vw, 60%);
-    
-    }
-
-    h1 {
-        font-size: clamp(5em, 9vw, 10em);
-    }
-
-    h2 {
-        font-size: clamp(0.9rem, 1.3vw, 1.3em);
-    }
-}
-
-@media (min-width: 1367px) and (max-width: 1536px) {
-    h1 {
-        font-size: clamp(6em, 9.5vw, 11em);
-    }
-}
-
-@media (min-width: 1920px) {
-
-    h1 {
-        font-size: clamp(6em, 8vw, 10em);
-    }
-
-    h2 {
-        font-size: clamp(1.2rem, 1.6vw, 1.7em);
-    }
-}
+/* Desktop text scales continuously; the 3D composition stays unchanged. */
 
 /* Hover glow effect for h2 */
 .subtitle:hover h2,
